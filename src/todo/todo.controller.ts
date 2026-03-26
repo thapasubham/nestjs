@@ -4,21 +4,15 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { Todo, TodoService } from './todo.service';
 import { CreateTodo } from './dto/createTODO.dto';
-import { create } from 'domain';
 import { updateTodoDto } from './dto/updateTODO.dto';
 @Controller('todo')
 export class TodoController {
-  service: TodoService;
-  constructor(service: TodoService) {
-    this.service = service;
-  }
+  constructor(private readonly service: TodoService) {}
   @Get()
   async getTodo() {
     return await this.service.get();
@@ -40,10 +34,10 @@ export class TodoController {
     @Param('id') id: string,
     @Body() updateTodoDto: updateTodoDto,
   ) {
-    const todo: Todo = {
-      name: updateTodoDto.name,
-      description: updateTodoDto.description,
-    };
+    const todo: Partial<Todo> = {};
+  if (updateTodoDto.name !== undefined) todo.name = updateTodoDto.name;
+  if (updateTodoDto.description !== undefined) todo.description = updateTodoDto.description;
+  if (updateTodoDto.status !== undefined) todo.status = updateTodoDto.status;
     return await this.service.updateTodo(id, todo);
   }
   @Delete(':id')
