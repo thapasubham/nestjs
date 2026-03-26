@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Mono Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#7df4ff",
+                        "surface-container": "#eeeeee",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#474746",
+                        "on-surface-variant": "#3b494b",
+                        "on-surface": "#1a1c1c",
+                        "outline-variant": "#b9cacb",
+                        "secondary": "#5f5e5e",
+                        "primary": "#006970",
+                        "on-background": "#1a1c1c",
+                        "surface-container-highest": "#e2e2e2",
+                        "background": "#f9f9f9",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-container": "#00f0ff",
+                        "inverse-surface": "#2f3131",
+                        "tertiary-fixed": "#7df4ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#006970",
+                        "on-tertiary-fixed": "#002022",
+                        "primary-fixed-dim": "#00dbe9",
+                        "inverse-primary": "#00dbe9",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e2e2",
+                        "primary-container": "#00f0ff",
+                        "on-tertiary-fixed-variant": "#004f54",
+                        "surface-dim": "#dadada",
+                        "surface-tint": "#006970",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed-dim": "#00dbe9",
+                        "outline": "#6a7a7b",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#636262",
+                        "on-primary-container": "#006970",
+                        "surface-container-low": "#f3f3f4",
+                        "surface": "#f9f9f9",
+                        "secondary-container": "#e2dfde",
+                        "on-primary-fixed-variant": "#004f54",
+                        "tertiary": "#006970",
+                        "inverse-on-surface": "#f0f1f1",
+                        "on-primary-fixed": "#002022",
+                        "on-primary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .clipped-panel {
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 98% 100%, 0 100%);
+        }
+        .slash-corner {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 90%);
+        }
+        .hud-grid {
+            background-image: radial-gradient(#b9cacb 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-tertiary-container selection:text-on-tertiary-container">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black border-b-2 border-on-surface flex justify-between items-center px-6 py-2 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#1A1A1A] dark:text-white font-headline">SYSTEM_ARCHITECT_v1.0</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#00F0FF] border-b-2 border-[#00F0FF] pb-1 font-label text-[10px] uppercase tracking-[0.2em]" href="#">NODE_01</a>
+<a class="text-[#1A1A1A] dark:text-gray-400 opacity-70 hover:bg-[#00F0FF] hover:text-white transition-colors duration-100 font-label text-[10px] uppercase tracking-[0.2em] px-2" href="#">NODE_02</a>
+<a class="text-[#1A1A1A] dark:text-gray-400 opacity-70 hover:bg-[#00F0FF] hover:text-white transition-colors duration-100 font-label text-[10px] uppercase tracking-[0.2em] px-2" href="#">DATA_STREAM</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<input class="bg-surface-container-low border-0 border-b-2 border-on-surface focus:border-tertiary-container focus:ring-0 text-[11px] font-label uppercase tracking-widest w-48" placeholder="SEARCH_PROTOCOL..." type="text"/>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined cursor-pointer hover:text-tertiary">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-tertiary">sensors</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-tertiary">terminal</span>
+</div>
+</div>
+</header>
+<!-- Side Navigation Anchor -->
+<aside class="hidden md:flex flex-col h-screen fixed left-0 top-0 w-64 border-r border-on-surface bg-[#F3F3F4] dark:bg-[#1A1A1A] [clip-path:polygon(0_0,100%_0,100%_95%,85%_100%,0_100%)] z-40 pt-20">
+<div class="px-6 py-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-on-surface flex items-center justify-center">
+<img alt="Operator HUD" class="w-full h-full object-cover grayscale brightness-150" data-alt="High-contrast technical avatar profile picture with neon cyan scanline effects and digital noise texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkKi7VOhCCHRxGLtCikGcxTfbzJQrbwgCUR6IhOIq8INn_aTT4YLgi7-y-Ei3hp6BRWXqLFaf2iIwbU-EITyoGo6x8jEaFbWqS4LKg0YtK-VMBMhPHZTajO9etw4-OspV-qKWbGg2D3S7bNrp1BxnhbMHIHavIhF6t41xzqH4hXPLJOaLivf8FSCEc_zxoCpiOBYwEwja4QOP0HJrnwzCEx6eiK0ZMGRI0w1wZqWUUXlKIza8bl91SIpZuBePP-czMm5f91icfCROK"/>
+</div>
+<div>
+<h3 class="font-headline font-black text-on-surface dark:text-white text-xs tracking-widest">OPERATOR_01</h3>
+<p class="text-[9px] font-label text-tertiary tracking-tighter">STATUS: OPTIMAL</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col">
+<a class="bg-on-surface text-[#00F0FF] border-l-4 border-[#00F0FF] p-4 flex items-center gap-4 translate-x-1 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span class="font-label text-[11px] uppercase tracking-widest">DASHBOARD</span>
+</a>
+<a class="text-on-surface dark:text-white p-4 flex items-center gap-4 opacity-50 hover:opacity-100 hover:bg-[#DADADA] dark:hover:bg-gray-800 transition-all" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label text-[11px] uppercase tracking-widest">ANALYTICS</span>
+</a>
+<a class="text-on-surface dark:text-white p-4 flex items-center gap-4 opacity-50 hover:opacity-100 hover:bg-[#DADADA] dark:hover:bg-gray-800 transition-all" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label text-[11px] uppercase tracking-widest">NETWORK</span>
+</a>
+<a class="text-on-surface dark:text-white p-4 flex items-center gap-4 opacity-50 hover:opacity-100 hover:bg-[#DADADA] dark:hover:bg-gray-800 transition-all" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-label text-[11px] uppercase tracking-widest">RESOURCES</span>
+</a>
+<a class="text-on-surface dark:text-white p-4 flex items-center gap-4 opacity-50 hover:opacity-100 hover:bg-[#DADADA] dark:hover:bg-gray-800 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label text-[11px] uppercase tracking-widest">LOGS</span>
+</a>
+</nav>
+<div class="p-6">
+<button class="w-full py-3 bg-gradient-to-tr from-[#006970] to-[#00F0FF] text-white font-label text-[10px] tracking-widest hover:scale-95 transition-transform">
+                INITIALIZE_SEQUENCE
+            </button>
+</div>
+<div class="mt-auto p-4 border-t border-on-surface/10">
+<a class="text-on-surface dark:text-white flex items-center gap-4 opacity-50 hover:opacity-100" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label text-[11px] uppercase tracking-widest">LOGOUT</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-20 p-8 min-h-screen hud-grid">
+<!-- Hero Header Sector -->
+<section class="mb-12 relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<p class="font-label text-[10px] text-tertiary tracking-[0.4em] mb-2">ACCESS_LEVEL: ALPHA</p>
+<h1 class="font-headline font-bold text-6xl md:text-8xl tracking-tighter text-on-surface leading-none">SYSTEM_CORE</h1>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 border-l-4 border-on-surface">
+<div class="w-1 h-12 bg-tertiary animate-pulse"></div>
+<div>
+<p class="font-label text-[10px] uppercase tracking-widest">Neural Sync Status</p>
+<div class="w-48 h-4 bg-surface-container-low mt-2 overflow-hidden border border-on-surface/5">
+<div class="h-full bg-gradient-to-r from-tertiary to-on-surface" style="width: 78%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px w-full bg-on-surface mt-8 opacity-20"></div>
+</section>
+<!-- Bento Grid Layering -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Primary Technical Panel -->
+<div class="md:col-span-8">
+<div class="bg-white border-t border-tertiary border-opacity-30 relative p-8 clipped-panel bg-opacity-90 backdrop-blur-md">
+<div class="flex justify-between items-start mb-12">
+<div>
+<span class="inline-block w-2 h-2 bg-tertiary mr-2"></span>
+<span class="font-label text-[11px] uppercase tracking-[0.2em]">Live Telemetry Stream</span>
+<h2 class="font-headline font-bold text-3xl mt-2">DATA_MATRIX_OVERRIDE</h2>
+</div>
+<div class="text-right">
+<p class="font-label text-[9px] text-on-surface opacity-40">COORDINATES: 40.7128° N, 74.0060° W</p>
+<p class="font-label text-[9px] text-on-surface opacity-40">TIMESTAMP: 2024.11.05.04.12.00</p>
+</div>
+</div>
+<div class="aspect-video w-full bg-surface-container-low relative overflow-hidden">
+<img alt="Server Room HUD" class="w-full h-full object-cover mix-blend-multiply opacity-80 grayscale" data-alt="Futuristic server room with cold blue lighting, server racks with glowing indicator lights, and a digital overlay of circuit patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl6ImXoqL7Qf9BJWh8DQgDJr_M_bYv4QIk6O5omRZMEfYpO2O4KJiv2e4Q-JkIWOMalif0EnSsE8kxtb3TJ02EhhMqfNEgA5K-kPZAw5P_t0PdROl3dd4OsA7W-598z3aWZODUkmXRKIrpdNBx8m433pmEd8AdyhkoXnWVnvQJa1Jb3pxEMiHt6m4xoaiSgIO6v2c20hCgyFI6a3ebzW5jk5vL_hf2Gqx5wx6c2InfmycG97rOCZe1aZylKS5739kFy_QGX_u7JTJZ"/>
+<div class="absolute inset-0 border-[20px] border-white pointer-events-none"></div>
+<div class="absolute top-8 left-8 p-2 border-l border-t border-tertiary">
+<p class="text-[10px] font-label text-tertiary tracking-widest">SENSING_ACTIVE</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-12 mt-12">
+<div>
+<p class="font-label text-[10px] text-tertiary uppercase tracking-widest mb-1">Packet_Loss</p>
+<p class="font-headline font-bold text-2xl">0.0002%</p>
+<div class="h-0.5 w-full bg-surface-container-highest mt-2">
+<div class="h-full bg-on-surface w-1/4"></div>
+</div>
+</div>
+<div>
+<p class="font-label text-[10px] text-tertiary uppercase tracking-widest mb-1">Throughput</p>
+<p class="font-headline font-bold text-2xl">8.4 PB/S</p>
+<div class="h-0.5 w-full bg-surface-container-highest mt-2">
+<div class="h-full bg-on-surface w-4/5"></div>
+</div>
+</div>
+<div>
+<p class="font-label text-[10px] text-tertiary uppercase tracking-widest mb-1">Uptime</p>
+<p class="font-headline font-bold text-2xl">99.9999%</p>
+<div class="h-0.5 w-full bg-surface-container-highest mt-2">
+<div class="h-full bg-tertiary w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Utility Panel -->
+<div class="md:col-span-4 space-y-8">
+<div class="bg-[#F3F3F4] p-6 slash-corner border-r-2 border-on-surface">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-tertiary">hub</span>
+<h3 class="font-headline font-bold text-lg uppercase tracking-tight">Active_Nodes</h3>
+</div>
+<ul class="space-y-6">
+<li class="flex justify-between items-center group cursor-pointer">
+<div>
+<p class="font-headline font-semibold text-sm">TOKYO_EDGE_01</p>
+<p class="text-[9px] font-label opacity-50 tracking-widest">LATENCY: 14MS</p>
+</div>
+<span class="w-2 h-2 bg-tertiary group-hover:scale-150 transition-transform"></span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<div>
+<p class="font-headline font-semibold text-sm">BERLIN_EDGE_04</p>
+<p class="text-[9px] font-label opacity-50 tracking-widest">LATENCY: 42MS</p>
+</div>
+<span class="w-2 h-2 bg-tertiary group-hover:scale-150 transition-transform"></span>
+</li>
+<li class="flex justify-between items-center group cursor-pointer">
+<div>
+<p class="font-headline font-semibold text-sm">REYKJAVIK_CORE</p>
+<p class="text-[9px] font-label opacity-50 tracking-widest">LATENCY: 08MS</p>
+</div>
+<span class="w-2 h-2 bg-tertiary group-hover:scale-150 transition-transform"></span>
+</li>
+</ul>
+<button class="mt-8 w-full py-2 border border-on-surface font-label text-[9px] tracking-widest hover:bg-on-surface hover:text-white transition-all">
+                        EXPAND_NETWORK_VIEW
+                    </button>
+</div>
+<div class="bg-on-surface text-white p-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 bg-tertiary text-on-tertiary font-label text-[8px] font-bold">CRITICAL</div>
+<p class="font-label text-[10px] tracking-[0.3em] text-tertiary mb-4">THREAT_LEVEL: OMEGA</p>
+<h3 class="font-headline font-bold text-4xl leading-tight mb-6">UNAUTHORIZED_ACCESS_DETECTED</h3>
+<div class="flex gap-4">
+<button class="flex-1 py-3 bg-white text-on-surface font-label text-[10px] font-bold tracking-widest hover:bg-tertiary transition-colors">ISOLATE</button>
+<button class="flex-1 py-3 border border-white/30 text-white font-label text-[10px] font-bold tracking-widest hover:border-white transition-colors">IGNORE</button>
+</div>
+</div>
+</div>
+<!-- Wide Bottom Data Strip -->
+<div class="md:col-span-12">
+<div class="bg-surface-container-low p-4 flex flex-wrap items-center justify-between border-b-4 border-on-surface">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-sm">database</span>
+<div>
+<p class="text-[9px] font-label uppercase text-on-surface opacity-50">Storage_Used</p>
+<p class="text-xs font-headline font-bold">1.4 / 10.0 EB</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-sm">memory</span>
+<div>
+<p class="text-[9px] font-label uppercase text-on-surface opacity-50">Comp_Cycles</p>
+<p class="text-xs font-headline font-bold">4.21 THz</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-sm">electric_bolt</span>
+<div>
+<p class="text-[9px] font-label uppercase text-on-surface opacity-50">Power_Draw</p>
+<p class="text-xs font-headline font-bold">12.4 MW</p>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="h-8 w-1 bg-on-surface/10"></div>
+<div class="h-8 w-1 bg-tertiary"></div>
+<div class="h-8 w-1 bg-on-surface/10"></div>
+<div class="h-8 w-1 bg-on-surface/10"></div>
+<div class="h-8 w-1 bg-on-surface/10"></div>
+</div>
+</div>
+</div>
+<!-- Large Layout Section -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
+<div class="p-8 bg-white border border-on-surface/10 hover:border-tertiary transition-colors group">
+<h4 class="font-headline font-bold text-xl mb-4">PROTOCOL_7_SYNC</h4>
+<p class="text-sm font-body text-on-surface/70 mb-6 leading-relaxed">System architecture alignment initialized. Verifying sub-atomic packet structures for neural coherence.</p>
+<div class="flex justify-between items-center">
+<span class="font-label text-[10px] tracking-widest text-tertiary">PROGRESS: 92%</span>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="p-8 bg-white border border-on-surface/10 hover:border-tertiary transition-colors group">
+<h4 class="font-headline font-bold text-xl mb-4">QUANTUM_LATCH</h4>
+<p class="text-sm font-body text-on-surface/70 mb-6 leading-relaxed">Secure hardware anchoring enabled. Hardware key-pair 0xFF-01 is currently engaged for local vault.</p>
+<div class="flex justify-between items-center">
+<span class="font-label text-[10px] tracking-widest text-tertiary">STATUS: SECURE</span>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">lock</span>
+</div>
+</div>
+<div class="p-8 bg-white border border-on-surface/10 hover:border-tertiary transition-colors group">
+<h4 class="font-headline font-bold text-xl mb-4">VOID_RECLAMATION</h4>
+<p class="text-sm font-body text-on-surface/70 mb-6 leading-relaxed">Scanning unused block vectors for recovery. Optimal reclamation density estimated at 14.2%.</p>
+<div class="flex justify-between items-center">
+<span class="font-label text-[10px] tracking-widest text-tertiary">TASK: IDLE</span>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">refresh</span>
+</div>
+</div>
+</div>
+</div>
+<footer class="mt-24 pt-8 border-t-2 border-on-surface flex flex-col md:flex-row justify-between gap-6 opacity-60">
+<div class="flex gap-8">
+<span class="font-label text-[9px] uppercase tracking-widest">© Aether Mono Systems LLC</span>
+<span class="font-label text-[9px] uppercase tracking-widest">Clearance_Level: Obsidian</span>
+</div>
+<div class="flex gap-6">
+<a class="font-label text-[9px] uppercase tracking-widest hover:text-tertiary transition-colors" href="#">Privacy_Protocol</a>
+<a class="font-label text-[9px] uppercase tracking-widest hover:text-tertiary transition-colors" href="#">Term_Logic</a>
+<a class="font-label text-[9px] uppercase tracking-widest hover:text-tertiary transition-colors" href="#">System_Map</a>
+</div>
+</footer>
+</main>
+<!-- Interactive Layering Background Element -->
+<div class="fixed top-0 right-0 w-1/3 h-full bg-surface-container-low -z-50 pointer-events-none opacity-30"></div>
+<div class="fixed bottom-10 left-10 p-2 bg-on-surface text-white font-label text-[10px] tracking-tighter mix-blend-difference z-50">
+        LAT: 40.7128 | LNG: -74.0060
+    </div>
+</body></html>
