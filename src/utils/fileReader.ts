@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import * as path from 'path';
 
-const filePath = path.join(__dirname, 'data.json');
+const filePath = path.join('./', 'data.json');
 
 export async function readFile<T>(): Promise<T[]> {
   try {

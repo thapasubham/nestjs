@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { readFile, writeFile } from '../utils/fileReader';
+import { generateId } from '../utils/generateID';
 
 export interface Todo {
-  id?: number;
+  id?: string;
   name: string;
   description: string;
   status?: boolean;
@@ -20,7 +21,7 @@ export class TodoService {
 
     const newTodo: Todo = {
       ...todo,
-      id: Date.now(),
+      id: generateId(todo.name),
       status: false,
     };
 
@@ -30,7 +31,7 @@ export class TodoService {
     return newTodo;
   }
 
-  async getTodoByID(id: number): Promise<Todo> {
+  async getTodoByID(id: string): Promise<Todo> {
     const todos = await readFile<Todo>();
 
     const todo = todos.find(t => t.id === id);
@@ -39,7 +40,7 @@ export class TodoService {
     return todo;
   }
 
-  async updateTodo(id: number, updateTodo: Partial<Todo>): Promise<Todo> {
+  async updateTodo(id: string, updateTodo: Partial<Todo>): Promise<Todo> {
     const todos = await readFile<Todo>();
 
     const index = todos.findIndex(t => t.id === id);
@@ -54,7 +55,7 @@ export class TodoService {
     return todos[index];
   }
 
-  async deleteTodo(id: number): Promise<Todo> {
+  async deleteTodo(id: string): Promise<Todo> {
     const todos = await readFile<Todo>();
 
     const index = todos.findIndex(t => t.id === id);

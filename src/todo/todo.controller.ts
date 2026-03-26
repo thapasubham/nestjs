@@ -15,7 +15,7 @@ this.service= service;
         
     }
     @Get(":id")
-    async getTodoByID(@Param('id', ParseIntPipe) id: number){
+    async getTodoByID(@Param('id') id: string){
         return await this.service.getTodoByID(id);
     }
     @Post()
@@ -24,7 +24,7 @@ this.service= service;
         return await this.service.createTodo(todo);
     }
     @Put(':id')
-    async updateTodo(@Param("id", ParseIntPipe)id: number,@Body()updateTodoDto: updateTodoDto){
+    async updateTodo(@Param("id", ParseIntPipe)id: string,@Body()updateTodoDto: updateTodoDto){
         const todo: Todo = {name: updateTodoDto.name, description: updateTodoDto.description}
         return await this.service.updateTodo(id, todo);
     }
