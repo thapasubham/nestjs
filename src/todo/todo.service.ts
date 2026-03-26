@@ -11,7 +11,6 @@ export interface Todo {
 
 @Injectable()
 export class TodoService {
-
   async get(): Promise<Todo[]> {
     return await readFile<Todo>();
   }
@@ -34,7 +33,7 @@ export class TodoService {
   async getTodoByID(id: string): Promise<Todo> {
     const todos = await readFile<Todo>();
 
-    const todo = todos.find(t => t.id === id);
+    const todo = todos.find((t) => t.id === id);
     if (!todo) throw new NotFoundException('Todo not found');
 
     return todo;
@@ -43,7 +42,7 @@ export class TodoService {
   async updateTodo(id: string, updateTodo: Partial<Todo>): Promise<Todo> {
     const todos = await readFile<Todo>();
 
-    const index = todos.findIndex(t => t.id === id);
+    const index = todos.findIndex((t) => t.id === id);
     if (index === -1) throw new NotFoundException('Todo not found');
 
     todos[index] = {
@@ -58,7 +57,7 @@ export class TodoService {
   async deleteTodo(id: string): Promise<Todo> {
     const todos = await readFile<Todo>();
 
-    const index = todos.findIndex(t => t.id === id);
+    const index = todos.findIndex((t) => t.id === id);
     if (index === -1) throw new NotFoundException('Todo not found');
 
     const deleted = todos[index];
