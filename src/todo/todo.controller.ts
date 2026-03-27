@@ -23,11 +23,7 @@ export class TodoController {
   }
   @Post()
   async createTodo(@Body() createTodoDto: CreateTodo) {
-    const todo: Todo = {
-      name: createTodoDto.name,
-      description: createTodoDto.description,
-    };
-    return await this.service.createTodo(todo);
+    return await this.service.createTodo(createTodoDto);
   }
   @Put(':id')
   async updateTodo(

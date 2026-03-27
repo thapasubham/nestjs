@@ -1,69 +1,50 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { readFile, writeFile } from '../utils/fileReader';
-import { generateId } from '../utils/generateID';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Document, Model } from 'mongoose';
 
 export interface Todo {
-  id?: string;
   name: string;
   description: string;
   status?: boolean;
 }
 
+export interface TodoDocument extends Todo, Document { }
+
 @Injectable()
 export class TodoService {
-  async get(): Promise<Todo[]> {
-    return await readFile<Todo>();
+
+  constructor(
+    @Inject('TODO_MODEL')
+    private todoModel: Model<TodoDocument>
+  ) { }
+  async get(): Promise<TodoDocument[]> {
+    return this.todoModel.find().exec();
   }
 
-  async createTodo(todo: Todo): Promise<Todo> {
-    const todos = await readFile<Todo>();
-
-    const newTodo: Todo = {
+  async createTodo(todo: Todo): Promise<TodoDocument> {
+    const result = await this.todoModel.create({
       ...todo,
-      id: generateId(todo.name),
       status: false,
-    };
-
-    todos.push(newTodo);
-    await writeFile(todos);
-
-    return newTodo;
+    });
+    return result;
   }
 
-  async getTodoByID(id: string): Promise<Todo> {
-    const todos = await readFile<Todo>();
-
-    const todo = todos.find((t) => t.id === id);
+  async getTodoByID(id: string): Promise<TodoDocument> {
+    const todo = await this.todoModel.findById(id).exec();
     if (!todo) throw new NotFoundException('Todo not found');
 
     return todo;
   }
 
-  async updateTodo(id: string, updateTodo: Partial<Todo>): Promise<Todo> {
-    const todos = await readFile<Todo>();
-
-    const index = todos.findIndex((t) => t.id === id);
-    if (index === -1) throw new NotFoundException('Todo not found');
-
-    todos[index] = {
-      ...todos[index],
-      ...updateTodo,
-    };
-
-    await writeFile(todos);
-    return todos[index];
+  async updateTodo(id: string, updateTodo: Partial<Todo>): Promise<TodoDocument> {
+    const result = await this.todoModel.findByIdAndUpdate(id, updateTodo, { new: true }).exec();
+    if (!result) throw new NotFoundException('Todo not found');
+    return result;
   }
 
-  async deleteTodo(id: string): Promise<Todo> {
-    const todos = await readFile<Todo>();
+  async deleteTodo(id: string): Promise<TodoDocument> {
+    const deleted = await this.todoModel.findByIdAndDelete(id).exec();
+    if (!deleted) throw new NotFoundException('Todo not found');
 
-    const index = todos.findIndex((t) => t.id === id);
-    if (index === -1) throw new NotFoundException('Todo not found');
-
-    const deleted = todos[index];
-    todos.splice(index, 1);
-
-    await writeFile(todos);
     return deleted;
   }
 }
