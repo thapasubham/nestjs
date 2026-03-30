@@ -3,6 +3,8 @@ import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 import { DatabaseModule } from '../database/database.module';
 import { todoProviders } from './todo.provider';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptors } from '../interceptors/loggin.interceptor';
 
 @Module({
   imports: [DatabaseModule],

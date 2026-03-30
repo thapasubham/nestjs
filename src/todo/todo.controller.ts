@@ -9,11 +9,15 @@ import {
   Post,
   Put,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Todo, TodoService } from './todo.service';
 import { CreateTodo } from './dto/createTODO.dto';
 import { updateTodoDto } from './dto/updateTODO.dto';
+import { LoggingInterceptors } from '../interceptors/loggin.interceptor';
+import { TransformInterceptor } from '../interceptors/transform.interceptor';
 @Controller('todo')
+@UseInterceptors(TransformInterceptor)
 export class TodoController {
   constructor(private readonly service: TodoService) {}
   @Get()
