@@ -1,11 +1,14 @@
 import {
   Body,
   Controller,
+  DefaultValuePipe,
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { Todo, TodoService } from './todo.service';
 import { CreateTodo } from './dto/createTODO.dto';
@@ -14,8 +17,8 @@ import { updateTodoDto } from './dto/updateTODO.dto';
 export class TodoController {
   constructor(private readonly service: TodoService) {}
   @Get()
-  async getTodo() {
-    return await this.service.get();
+  async getTodo(@Query('offset', new DefaultValuePipe(0), ParseIntPipe) offset: number, @Query('limit', new DefaultValuePipe(2),ParseIntPipe) limit: number) {
+    return await this.service.get(offset, limit);
   }
   @Get(':id')
   async getTodoByID(@Param('id') id: string) {

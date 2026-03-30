@@ -22,8 +22,12 @@ export class TodoService {
     @Inject('TODO_MODEL')
     private todoModel: Model<TodoDocument>
   ) { }
-  async get(): Promise<TodoDocument[]> {
-    return await this.todoModel.find({ deletedAt: null }).lean();
+  async get(offset: number, limit: number): Promise<TodoDocument[]> {
+    if(limit ==0){
+      limit = 2;
+    }
+    limit = Math.max(2,Math.min(limit, 3) );
+    return await this.todoModel.find({ deletedAt: null }, {__v:0}).skip(offset).limit(limit).lean();
   }
 
   async createTodo(todo: Todo): Promise<TodoDocument> {
